@@ -2,51 +2,33 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import PropTypes from 'prop-types';
 import './App.css';
-import Board from './components/Board';
+import BoardList from './components/BoardList';
+import NewBoardForm from './components/NewBoardForm';
 
+const BACKEND_URL = 'http://localhost:5000';
 
 function App() {
+  const [boardsData, setBoardsData] = useState([])
+  const [selectedBoard, setSelectedBoard] = useState({
+    title: '' ,
+    owner: '' ,
+    board_id : null
+  })
+  
+ 
+ 
+  
+  
+  
   return (
     <div className="App">
       <header className="App-header">
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        <div>
+        < NewBoardForm />
+        </div>
       </header>
     </div>
   );
 }
 
-Board.propTypes = {
-  cards: PropTypes.arrayOf(
-    PropTypes.arrayOf(
-      PropTypes.shape({
-        title: PropTypes.string.isRequired,
-        owner: PropTypes.string.isRequired
-      })
-    )
-  ),
-  onClickCallback: PropTypes.func.isRequired,
-};
-
-// Board.propTypes = {
-//   card: PropTypes.arrayOf(
-//     PropTypes.arrayOf(
-//       PropTypes.shape({
-//         title: PropTypes.string.isRequired
-//         : PropTypes.string.isRequired
-//       })
-//     )
-//   ),
-//   onClickCallback: PropTypes.func.isRequired,
-// };
-
-// export default App;
+export default App;
