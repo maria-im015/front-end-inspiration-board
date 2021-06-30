@@ -1,9 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { useState, useEffect}
 
-import './Card.css'
+// Card componet is responsible for maintaing and rendering its own state
+constCard = () => {
 
-
+};
 
 
 export default Card;

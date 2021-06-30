@@ -25,6 +25,7 @@ function App() {
       <header className="App-header">
         <div>
         < NewBoardForm />
+        < BoardList/>
         </div>
       </header>
     </div>
