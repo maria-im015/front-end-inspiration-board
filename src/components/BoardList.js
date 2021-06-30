@@ -1,28 +1,16 @@
 import React from 'react';
-import './Board.css';
+import './BoardList.css';
 import PropTypes from 'prop-types';
 import {useState} from 'react'
 import axios from 'axios';
 
-
+//BoardList component is a container component that wraps up all of our Board components. 
 
 const BoardList = (props) => {
 const [boardsData, setBoardsData] = useState([])
-const [selectedBoard, setSelectedBoard] = useState({
-    title: '' ,
-    owner: '' ,
-    board_id : null
-})
 
-const selectBoard = (board_id) => {
-    const board = boardsData.map((board) => {
-        if ( board.board_id === board_id)
-            setSelectedBoard(board)
-    })
 
-}
 
-// send GET request to API to get info on selectedBoard when clicked. I want the title and owner to render on the screen
 const handleSelectedBoard = (selectBoard) => {
     axios.get('http://localhost:5000/boards')
     .then((response) => {

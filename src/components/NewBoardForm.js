@@ -4,6 +4,7 @@ import './NewBoardForm.css';
 import PropTypes from 'prop-types';
 import axios from 'axios';
 
+//keeps track of its own state
 const BACKEND_PATH = 'http://localhost:5000'
 
 const NewBoardForm = (props) => {
