@@ -16,10 +16,10 @@ const NewBoardForm = (props) => {
     //need to add event.target.title
     const handleTitleChange = (title) => { 
         setTitle(title.target.value)
-     };
+    };
     const handleOwnerChange = (owner) => { 
         setOwner(owner.target.value)
-     };
+    };
     
 
 return (

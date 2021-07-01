@@ -9,12 +9,13 @@ import axios from 'axios';
 const BoardList = (props) => {
 
   const selectBoardHandler = () => {
+      console.log(`board ${props.board.board_id}`)
       props.onSelectBoardCallback(props.board)
   }
 
   return (
           <section className="titleContainer" onClick={selectBoardHandler}>
-               {props.board.title}
+              {props.board.title}
           </section>
   )
   }

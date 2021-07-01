@@ -18,7 +18,7 @@ function App() {
   const [selectedBoard, setSelectedBoard] = useState({
     title: '',
     owner: '',
-    board_id: null
+    board_id: 1
   });
 
   //GET for Boards
