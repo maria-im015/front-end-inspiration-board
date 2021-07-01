@@ -9,7 +9,7 @@ const CardList = (props) => {
 
 return(
     <div>
-
+        {props.cards}
     </div>
 )};
 

@@ -4,7 +4,7 @@ import './App.css';
 import BoardList from './components/BoardList';
 import Card from './components/Card';
 import CardList from './components/CardList';
-import Board from './components/Board';
+// import Board from './components/Board';
 import NewBoardForm from './components/NewBoardForm'
 // when we click submit on create new board, it renders a new board list 
 // App--> NewBoardForm(props)<--
@@ -32,10 +32,14 @@ function App() {
     });
   }, []);
 
+  const onSelectBoardCallback = (board) => {
+    setSelectedBoard(board)
+  }
+
   const boardsElements = boardsData.map((board) => {
     return (
       <li>
-        <Board board={board} onBoardSelect={selectedBoard}/>
+        <BoardList board={board} onBoardSelect={selectedBoard} onSelectBoardCallback={onSelectBoardCallback}/>
       </li>)
     });
 
@@ -57,19 +61,19 @@ function App() {
 
   const [cardsData, setCardsData] = useState([]);
     //GET for Card
-    const getCards=(id)=> {
-      axios.get(`${process.env.REACT_APP_BACKEND_URL}/boards/${selectedBoard.id}/cards`).then((response)=> {
+    useEffect(() => {
+      axios.get(`${process.env.REACT_APP_BACKEND_URL}/boards/${selectedBoard.board_id}/cards`).then((response)=> {
         setCardsData(response.data);
       }).catch((error) => {
         console.log('Error:', error);
         alert('Couldn\'t get cards for this board.');
       });
-    }
+    }, [selectedBoard]);
   
     // POST for Card
   const postNewCard = (message) => {
     axios.post(
-        `${process.env.REACT_APP_BACKEND_URL}/boards/${selectedBoard.id}/cards`,
+        `${process.env.REACT_APP_BACKEND_URL}/boards/${selectedBoard.board_id}/cards`,
         {message}
     ).then((response) => {
       const cards = [...cardsData];
@@ -77,6 +81,7 @@ function App() {
       setCardsData(cards);
     }).catch((error) => {
       console.log('Error:', error);
+      console.log(selectedBoard);
       alert('Couldn\'t create a new card.');
     });
   };

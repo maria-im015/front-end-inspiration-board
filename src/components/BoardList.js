@@ -7,24 +7,39 @@ import axios from 'axios';
 //BoardList component is a container component that wraps up all of our Board 
 
 const BoardList = (props) => {
-const [boardsData, setBoardsData] = useState([])
 
-useEffect(() => {
-    console.log('I\'m in useEffect!');
+  const selectBoardHandler = () => {
+      props.onSelectBoardCallback(props.board)
+  }
+
+  return (
+          <section className="titleContainer" onClick={selectBoardHandler}>
+               {props.board.title}
+          </section>
+  )
+  }
+  
+  export default BoardList;
+
+// const BoardList = (props) => {
+// const [boardsData, setBoardsData] = useState([])
+
+// useEffect(() => {
+//     console.log('I\'m in useEffect!');
     
-    console.log('or whenever pieceOfState is updated');
-  }, [props.selectBoardMenu]);
+//     console.log('or whenever pieceOfState is updated');
+//   }, [props.selectBoardMenu]);
 
 
 
 
-return (
-        <div>
+// return (
+//         <div>
         
-        </div>
+//         </div>
     
 
 
-)};
+// )};
 
-export default BoardList;
+// export default BoardList;
