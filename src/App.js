@@ -1,59 +1,135 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import PropTypes from 'prop-types';
 import './App.css';
 import BoardList from './components/BoardList';
-import NewBoardForm from './components/NewBoardForm';
 import Card from './components/Card';
 import CardList from './components/CardList';
-
-const BACKEND_URL = 'http://localhost:5000';
+import Board from './components/Board';
+import NewBoardForm from './components/NewBoardForm'
+// when we click submit on create new board, it renders a new board list 
+// App--> NewBoardForm(props)<--
+// App --> NewBoardForm(props.eventHandler)   App then re- renders BoardList to display current boardlist
+// BoardList is passing prop.name to SelectedBoard       
+//App--> NewBoardForm(props)<--takes in formData and passes it back to app to be re-rendered in list when we click submit new board
 
 function App() {
 
+  const [boardsData, setBoardsData] = useState([]);
+  const [selectedBoard, setSelectedBoard] = useState({
+    title: '',
+    owner: '',
+    board_id: null
+  });
 
+  //GET for Boards
+  useEffect(() => {
+    axios.get(`${process.env.REACT_APP_BACKEND_URL}/boards`).then((response)=> {
+      console.log(response.data)
+      setBoardsData(response.data);
+    }).catch((error) => {
+      console.log('Error:', error);
+      alert('Couldn\'t get boards for this');
+    });
+  }, []);
+
+  const boardsElements = boardsData.map((board) => {
+    return (
+      <li>
+        <Board board={board} onBoardSelect={selectedBoard}/>
+      </li>)
+    });
+
+  //POST for Board
+  const createNewBoard = (event,newBoard) => {
+    event.preventDefault()
+    console.log(`${process.env.REACT_APP_BACKEND_URL}/boards`)
+    axios.post(`${process.env.REACT_APP_BACKEND_URL}/boards`, newBoard).then((response) => {
+      console.log("Response:", response.data.board);
+      const boards = [...boardsData];
+      boards.push(response.data.board);
+      setBoardsData(boards);
+    }).catch((error) => {
+      console.log('Error:', error);
+      alert('Couldn\'t create a new board.');
+    });
+  }
+
+
+  const [cardsData, setCardsData] = useState([]);
+    //GET for Card
+    const getCards=(id)=> {
+      axios.get(`${process.env.REACT_APP_BACKEND_URL}/boards/${selectedBoard.id}/cards`).then((response)=> {
+        setCardsData(response.data);
+      }).catch((error) => {
+        console.log('Error:', error);
+        alert('Couldn\'t get cards for this board.');
+      });
+    }
   
- 
- 
+    // POST for Card
+  const postNewCard = (message) => {
+    axios.post(
+        `${process.env.REACT_APP_BACKEND_URL}/boards/${selectedBoard.id}/cards`,
+        {message}
+    ).then((response) => {
+      const cards = [...cardsData];
+      cards.push(response.data.card);
+      setCardsData(cards);
+    }).catch((error) => {
+      console.log('Error:', error);
+      alert('Couldn\'t create a new card.');
+    });
+  };
   
-  
-  
+  //PUT for Cards
+  const plusOneCardItem = (card) => {
+    axios.put(`${process.env.REACT_APP_BACKEND_URL}/cards/${card.card_id}/like`).then((response) => {
+      const newCardsData = cardsData.map((existingCard) => {
+        return existingCard.card_id !== card.card_id ? existingCard : {...card, likes_count: card.likes_count}
+      });
+      setCardsData(newCardsData);
+    }).catch((error) => {
+      console.log('Error:', error);
+      alert('Couldn\'t +1 the card.');
+    });
+  };
+
+  //DELETE for Cards
+  const deleteCardItem = (card) => {
+    axios.delete(`${process.env.REACT_APP_BACKEND_URL}/cards/${card.card_id}`).then((response) => {
+      const newCardsData = cardsData.filter((existingCard) => {
+        return existingCard.card_id !== card.card_id;
+      })
+      setCardsData(newCardsData);
+    }).catch((error) => {
+      console.log('Error:', error);
+      alert('Couldn\'t delete the card.');
+    });
+  }
+
   return (
-    <div className="App">
-      
-        <div>
-          <section class='content_container'>
-            <section class='boards-content_container'>
-              <ol class='boards-list_container'>
-                < BoardList />
-              </ol>
-            </section>
-          
-            <section class='new-board-form_container'>
-              <section class='new-board-form_form'>
-                < NewBoardForm />
-              </section>
-            </section>
-            
-            <section class='new-card_container'>
-              <section class='new-card-form_form'>
-                < NewCardForm />
-              </section>
-            </section>
-
-            <section class='selected-board_container'>
-              <section class='selected-board'>
-                < Board />
-              </section>
-                <section class='selected-cards-for-board_container'>
-                    < CardList />
-                </section>
-            </section>
+    <div className="page__container">
+      <div className="content__container"/>
+        <h1>Inspiration Board</h1>
+        <section className="boards__container"/>
+          <section>
+            <h2>Boards</h2>
+            <NewBoardForm createNewBoard={createNewBoard}/>
+            <ol className="boards__list">
+              {boardsElements}
+            </ol>
           </section>
-        </div>
-      
-  </div>
+          <section>
+            <h2>Selected Board</h2>
+            <p>{selectedBoard.board_id ? `${selectedBoard.title} - ${selectedBoard.owner}` : 'Select a Board from the Board List!'}</p>
+          </section>
+          <section className="new-board-form__container"/>
+            <h2>Create a New Board</h2>
+          <section className="cards_container">
+              < CardList deleteCard={deleteCardItem} cardsData={cardsData} />
+          </section>
+    </div>
   );
-}
+};
 
 export default App;
