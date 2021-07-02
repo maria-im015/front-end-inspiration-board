@@ -12,13 +12,15 @@ import NewBoardForm from './components/NewBoardForm'
 // BoardList is passing prop.name to SelectedBoard       
 //App--> NewBoardForm(props)<--takes in formData and passes it back to app to be re-rendered in list when we click submit new board
 
+// TESTING MAIN BRANCH
+
 function App() {
 
   const [boardsData, setBoardsData] = useState([]);
   const [selectedBoard, setSelectedBoard] = useState({
     title: '',
     owner: '',
-    board_id: 1
+    board_id: null
   });
 
   //GET for Boards

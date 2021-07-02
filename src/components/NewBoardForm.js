@@ -23,7 +23,6 @@ const NewBoardForm = (props) => {
     
 
 return (
-
         <div className='new-board-form_container'>
         <h2> Create A New Board </h2>
         <form className='new-board-form'onSubmit={(event) => props.createNewBoard(event,{title,owner})}>
@@ -36,7 +35,6 @@ return (
             </div>
         </form>
         </div>
-
 )
 };
 

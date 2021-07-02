@@ -8,7 +8,6 @@ import axios from 'axios';
 const Card = () => {
 const [likes, setLikes] = useState(0)
 const onLikeSubmitClickHandler = (card_id) => {
-      
 
 }
 

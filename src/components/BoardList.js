@@ -9,7 +9,6 @@ import axios from 'axios';
 const BoardList = (props) => {
 
   const selectBoardHandler = () => {
-      console.log(`board ${props.board.board_id}`)
       props.onSelectBoardCallback(props.board)
   }
 
