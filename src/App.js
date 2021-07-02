@@ -71,6 +71,12 @@ function App() {
         alert('Couldn\'t get cards for this board.');
       });
     }, [selectedBoard]);
+
+    const updateCardList = (id) => {
+      const newCards = [...cardsData]
+      setCardsData(newCards)
+      console.log(cardsData)
+    }
   
     // POST for Card
   const postNewCard = (message) => {
@@ -133,7 +139,7 @@ function App() {
           <section className="new-board-form__container"/>
             <h2>Create a New Board</h2>
           <section className="cards_container">
-              < CardList deleteCard={deleteCardItem} cardsData={cardsData} />
+              < CardList deleteCard={deleteCardItem} cardsData={cardsData} onClickCallback={updateCardList} postNewCard={postNewCard}/>
           </section>
     </div>
   );
