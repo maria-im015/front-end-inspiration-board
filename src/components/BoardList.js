@@ -2,7 +2,7 @@ import React from 'react';
 import './BoardList.css';
 import PropTypes from 'prop-types';
 import {useState, useEffect} from 'react'
-import axios from 'axios';
+
 
 //BoardList component is a container component that wraps up all of our Board 
 

@@ -1,11 +1,11 @@
 import {useEffect, useState} from 'react';
 import React from 'react';
-import './NewBoardForm.css';
+import './NewCardForm.css';
 import PropTypes from 'prop-types';
 
 //keeps track of its own state
 
-const NewBoardForm = (props) => {
+const NewCardForm = (props) => {
     const [title, setTitle] = useState('')
     const [owner, setOwner] = useState('')
     
@@ -22,7 +22,7 @@ const NewBoardForm = (props) => {
 
 return (
         <div className='new-board-form_container'>
-        <h2> Create A New Board </h2>
+        <h2> Create A Message </h2>
         <form className='new-board-form'onSubmit={(event) => props.createNewBoard(event,{title,owner})}>
             <label> Title </label>
             <input type='text' value={title} onChange={handleTitleChange}/>
@@ -36,4 +36,4 @@ return (
 )
 };
 
-export default NewBoardForm;
+export default NewCardForm;

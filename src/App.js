@@ -5,6 +5,7 @@ import BoardList from './components/BoardList';
 import Card from './components/Card';
 import CardList from './components/CardList';
 // import Board from './components/Board';
+import NewCardForm from './NewCardForm';
 import NewBoardForm from './components/NewBoardForm'
 // when we click submit on create new board, it renders a new board list 
 // App--> NewBoardForm(props)<--
@@ -70,9 +71,9 @@ function App() {
         console.log('Error:', error);
         alert('Couldn\'t get cards for this board.');
       });
-    }, [selectedBoard]);
+    }, []);
 
-    const updateCardList = (id) => {
+    const updateCardList = (board_id) => {
       const newCards = [...cardsData]
       setCardsData(newCards)
       console.log(cardsData)
@@ -95,7 +96,7 @@ function App() {
   };
   
   //PUT for Cards
-  const plusOneCardItem = (card) => {
+  const addOneLike = (card) => {
     axios.put(`${process.env.REACT_APP_BACKEND_URL}/cards/${card.card_id}/like`).then((response) => {
       const newCardsData = cardsData.map((existingCard) => {
         return existingCard.card_id !== card.card_id ? existingCard : {...card, likes_count: card.likes_count}
@@ -126,8 +127,8 @@ function App() {
         <h1>Inspiration Board</h1>
         <section className="boards__container"/>
           <section>
-            <h2>Boards</h2>
             <NewBoardForm createNewBoard={createNewBoard}/>
+            <h2>Boards</h2>
             <ol className="boards__list">
               {boardsElements}
             </ol>
@@ -137,12 +138,16 @@ function App() {
             <p>{selectedBoard.board_id ? `${selectedBoard.title} - ${selectedBoard.owner}` : 'Select a Board from the Board List!'}</p>
           </section>
           <section className="new-board-form__container"/>
-            <h2>Create a New Board</h2>
           <section className="cards_container">
-              < CardList deleteCard={deleteCardItem} cardsData={cardsData} onClickCallback={updateCardList} postNewCard={postNewCard}/>
+              < CardList deleteCard={deleteCardItem} cardsData={cardsData} postNewCard={postNewCard} onClickCallback={updateCardList} />
+          </section>
+          <section>
+            <NewCardForm createNewCard={postNewCard}/>
           </section>
     </div>
   );
 };
 
 export default App;
+
+// 
