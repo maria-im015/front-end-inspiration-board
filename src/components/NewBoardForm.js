@@ -23,7 +23,7 @@ const NewBoardForm = (props) => {
 return (
         <div className='new-board-form_container'>
         <h2> Create A New Board </h2>
-        <form className='new-board-form'onSubmit={(event) => props.createNewBoard(event,{title,owner})}>
+        <form className='new-board-form' onSubmit={(event) => props.createNewBoard(event,{title,owner})}>
             <label> Title </label>
             <input type='text' value={title} onChange={handleTitleChange}/>
             <label> Owner's Name </label>

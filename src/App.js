@@ -70,7 +70,7 @@ function App() {
       }).catch((error) => {
         console.log('Error:', error);
         alert('Couldn\'t get cards for this board.');
-      });
+      }); 
     }, []);
 
     const updateCardList = (board_id) => {

@@ -3,6 +3,7 @@ import Card from './Card';
 import PropTypes from 'prop-types';
 import {useState, useEffect} from 'react'
 
+
 const CardList = (props) => {
     const cardsList = props.cardsData.map((card) => {
         return (
@@ -19,29 +20,7 @@ const CardList = (props) => {
         </ul>)
 
 
-    // return(
-    //     <div>
-    //         {props.cards}
-    //     </div>
-    // )};
 
-    // const cardList = props.cardsData.map((card) => {
-    //     console.log("props.cardsData");
-    //     console.log(props.cardsData);
-        
-    //     return (<Card
-    //         message={ card.message}
-    //         likeCount={card.likes_count}
-    //         cardId={card.card_id}
-    //         // plusOneCardItem={plusOneCardItem}
-    //         // deleteCardItem={deleteCardItem}
-    //         />)
-    //     });
-    //     return (
-    //         <section>
-    //             {cardList}
-    //         </section>
-    //         )
     
     
 }
@@ -67,15 +46,4 @@ export default CardList;
 //         </section>)
 // };
 
-//CardList component is responsible for rendering all cards associated with a board to the screen
 
-
-
-// const generateCards = (cardsData, onClickCallback) => {
-//     console.log(cardsData);
-//     // const singleArrayCards = [].concat(...cardsData);
-//     // return singleArrayCards.map((card) => {
-//         return <div
-//             // onClickCallback={onClickCallback} 
-//             />
-//     };

@@ -6,29 +6,27 @@ import PropTypes from 'prop-types';
 //keeps track of its own state
 
 const NewCardForm = (props) => {
-    const [title, setTitle] = useState('')
-    const [owner, setOwner] = useState('')
+    const [message, setMessage] = useState('')
+    // const [owner, setOwner] = useState('')
     
 
     
     //need to add event.target.title
-    const handleTitleChange = (title) => { 
-        setTitle(title.target.value)
+    const handleMessageChange = (message) => { 
+        setMessage(message.target.value)
     };
-    const handleOwnerChange = (owner) => { 
-        setOwner(owner.target.value)
-    };
+    // const handleOwnerChange = (owner) => { 
+    //     setOwner(owner.target.value)
+    // };
     
 
 return (
-        <div className='new-board-form_container'>
+        <div className='new-card-form_container'>
         <h2> Create A Message </h2>
-        <form className='new-board-form'onSubmit={(event) => props.createNewBoard(event,{title,owner})}>
-            <label> Title </label>
-            <input type='text' value={title} onChange={handleTitleChange}/>
-            <label> Owner's Name </label>
-            <input type='text' value={owner} onChange={handleOwnerChange}/>
-            <div className='submit-new-board-form'>
+        <form className='new-card-form' onSubmit={(event) => props.createNewCard(event,{message})}>
+            <label> Message </label>
+            <input type='text' value={message} onChange={handleMessageChange}/>
+            <div className='submit-new-card-form'>
                 <input type='submit' value='Submit'/>
             </div>
         </form>
@@ -37,3 +35,6 @@ return (
 };
 
 export default NewCardForm;
+
+// <label> Owner's Name </label>
+// <input type='text' value={owner} onChange={handleOwnerChange}/> 

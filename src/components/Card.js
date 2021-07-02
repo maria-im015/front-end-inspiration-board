@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import React, { useState, useEffect } from 'react';
+import NewCardForm from '../NewCardForm';
 
 // Card component is responsible for maintaining and rendering its own state
 
